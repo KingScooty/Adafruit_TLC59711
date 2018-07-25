@@ -1,7 +1,7 @@
 Adafruit_TLC59711
 ================
 
-#####Ported to the Particle ecosystem by KingScooty
+##### Ported to the Particle ecosystem by KingScooty
 
   This is a library for our Adafruit 12-channel PWM/LED driver
 
