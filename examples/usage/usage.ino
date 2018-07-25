@@ -1,50 +1,54 @@
-/*************************************************** 
+/***************************************************
   This is an example for our Adafruit 12-channel PWM/LED driver
 
   Pick one up today in the adafruit shop!
   ------> http://www.adafruit.com/products/
 
-  These drivers uses SPI to communicate, 2 pins are required to  
+  These drivers uses SPI to communicate, 2 pins are required to
   interface: Data and Clock. The boards are chainable
 
-  Adafruit invests time and resources providing this open source code, 
-  please support Adafruit and open-source hardware by purchasing 
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
   products from Adafruit!
 
-  Written by Limor Fried/Ladyada for Adafruit Industries.  
+  Written by Limor Fried/Ladyada for Adafruit Industries.
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
 #include "Adafruit_TLC59711.h"
-#include <SPI.h>
+#include "Particle.h"
 
 // How many boards do you have chained?
-#define NUM_TLC59711 2
+#define NUM_TLC59711 1
 
-#define data   11
-#define clock  13
+#define data   A5
+#define clock  A3
 
 Adafruit_TLC59711 tlc = Adafruit_TLC59711(NUM_TLC59711, clock, data);
 //Adafruit_TLC59711 tlc = Adafruit_TLC59711(NUM_TLC59711);
 
 void setup() {
   Serial.begin(9600);
-  
+
   Serial.println("TLC59711 test");
-  pinMode(10, OUTPUT);
+  pinMode(A2, OUTPUT);
   tlc.begin();
   tlc.write();
 }
 
 void loop() {
-  colorWipe(65535, 0, 0, 100); // "Red" (depending on your LED wiring)
-  delay(200);
-  colorWipe(0, 65535, 0, 100); // "Green" (depending on your LED wiring)
-  delay(200);
-  colorWipe(0, 0, 65535, 100); // "Blue" (depending on your LED wiring)
-  delay(200);
-  
-  rainbowCycle(5);
+    tlc.setLED(0, 65535, 0, 0);
+    delay(200);
+    tlc.setLED(0, 0, 0, 0);
+    delay(200);
+  // colorWipe(65535, 0, 0, 100); // "Red" (depending on your LED wiring)
+  // delay(200);
+  // colorWipe(0, 65535, 0, 100); // "Green" (depending on your LED wiring)
+  // delay(200);
+  // colorWipe(0, 0, 65535, 100); // "Blue" (depending on your LED wiring)
+  // delay(200);
+  //
+  // rainbowCycle(5);
 }
 
 

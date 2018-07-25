@@ -1,23 +1,24 @@
-/*************************************************** 
-  This is a library for our Adafruit 24-channel PWM/LED driver
+/***************************************************
+  This is a library for our Adafruit 12-channel PWM/LED driver
 
   Pick one up today in the adafruit shop!
   ------> http://www.adafruit.com/products/1455
 
-  These drivers uses SPI to communicate, 3 pins are required to  
+  These drivers uses SPI to communicate, 3 pins are required to
   interface: Data, Clock and Latch. The boards are chainable
 
-  Adafruit invests time and resources providing this open source code, 
-  please support Adafruit and open-source hardware by purchasing 
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
   products from Adafruit!
 
-  Written by Limor Fried/Ladyada for Adafruit Industries.  
+  Written by Limor Fried/Ladyada for Adafruit Industries.
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
 
 #include <Adafruit_TLC59711.h>
-#include <SPI.h>
+// #include "application.h" // specifically, we want SPI
+// #include <SPI.h>
 
 Adafruit_TLC59711::Adafruit_TLC59711(uint8_t n, uint8_t c, uint8_t d) {
   numdrivers = n;
@@ -53,7 +54,7 @@ void  Adafruit_TLC59711::spiwriteMSB(uint32_t d) {
     //  b <<= (bits-1);
     for (; b!=0; b>>=1) {
       digitalWrite(_clk, LOW);
-      if (d & b)  
+      if (d & b)
 	digitalWrite(_dat, HIGH);
       else
 	digitalWrite(_dat, LOW);
@@ -109,7 +110,7 @@ void Adafruit_TLC59711::write(void) {
 
 void Adafruit_TLC59711::setPWM(uint8_t chan, uint16_t pwm) {
   if (chan > 12*numdrivers) return;
-  pwmbuffer[chan] = pwm;  
+  pwmbuffer[chan] = pwm;
 }
 
 
